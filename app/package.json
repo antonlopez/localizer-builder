@@ -1,0 +1,18 @@
+{
+  "name": "Localizer",
+  "productName": "Localizer",
+  "version": "1.0.0",
+  "description": "Electron application based on react, the goal of this app is to translate text variables for an application",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Antonio Lopez",
+    "email": "anton.lopez09@gmail.com",
+    "url": ""
+  },
+  "scripts": {
+    "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "npm run electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
