@@ -5,13 +5,17 @@ import{ bindActionCreators } from 'redux';
 import {zoomIn} from 'react-animations';
 import styled, {keyframes} from 'styled-components';
 import { Link } from 'react-router-dom';
-import { getFile, saveLanguage, deletePrevious } from '../../actions';
+import { getFile, saveLanguage, deletePrevious, viewImage, workspaceUpdate } from '../../actions';
+import ImageContainer from './ImageContainer';
+import ImagePickerContainer from './ImagePickerContainer';
+import SearchTextContainer from './searchTextContainer';
+import UploadFiles from './components/UploadFiles';
 
 
 
 type Props = {};
 
-class Home extends Component<Props> {
+class Workspace extends Component<Props> {
   props: Props;
   constructor(props) {
     super(props);
@@ -20,7 +24,7 @@ class Home extends Component<Props> {
 
 
   render() {
-    const { getFile, language, history, loading, filesExtracted } = this.props;
+    const { getFile, addImage, images, viewImage, imagePath, workspaceUpdate} = this.props;
 
 
     return (
@@ -28,14 +32,45 @@ class Home extends Component<Props> {
         <div data-tid="container">
           <h2>WorkSpace</h2>
         </div>
+        <WorkspaceContainer>
+          {addImage ? <UploadFiles />
+             :
+          <div style={{display:'flex', marginLeft: '6vw'}}>
+            <ImageContainer imagePath={imagePath} />
+            <SearchTextContainer />
+          </div> }
+
+        </WorkspaceContainer>
+        <PreviewContainer>
+          <ImagePickerContainer workspaceUpdate={workspaceUpdate} images={images} viewImage={viewImage} />
+        </PreviewContainer>
 
       </Container>
     );
   }
 }
 
+const WorkspaceContainer = styled.div`
+  display: flex;
+`;
+
+const PreviewContainer = styled.div`
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: rgba(45,45,45,0.5);
+   color: white;
+   text-align: center;
+   height: 155px;
+`;
+
 const zoomInAnimationHome = keyframes`${zoomIn}`;
-const Container = styled.div``;
+const Container = styled.div`
+h2{ font-size: 1em;
+    position: absolute;
+}
+`;
 
 const MenuContainer = styled.div`
     margin-top: 10%;
@@ -44,12 +79,12 @@ const MenuContainer = styled.div`
 
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getFile, saveLanguage, deletePrevious }, dispatch);
+  return bindActionCreators({ getFile, saveLanguage, deletePrevious, viewImage, workspaceUpdate }, dispatch);
 };
 
 const mapStateToProps = state => {
-  const { loading, language, filesExtracted } = state.translator;
-  return { loading, language, filesExtracted };
+  const { loading, language, filesExtracted, addImage, images, imagePath, imageId } = state.workspace;
+  return { loading, language, filesExtracted, addImage, images, imagePath };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Workspace);

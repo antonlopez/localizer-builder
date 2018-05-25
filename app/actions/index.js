@@ -1,1 +1,1 @@
-export * from './SystemActions';
+export * from './WorkspaceActions';

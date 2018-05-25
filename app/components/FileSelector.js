@@ -13,7 +13,6 @@ export default class FileSelector extends React.Component {
 
   handleChange(e) {
     const { getFile, history } = this.props;
-    debugger;
     const pathToZip = e.target.files[0].path;
     getFile(pathToZip, history);
   }

@@ -8,8 +8,8 @@ import Workspace from './pages/workspace/Workspace';
 export default () => (
   <App>
     <Switch>
-      <Route path="/" component={Home} />
       <Route path="/workspace" component={Workspace} />
+      <Route path="/" component={Home} />
     </Switch>
   </App>
 );

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { BrowserRouter } from 'react-router-dom';
 import Routes from '../routes';
 
 type Props = {
@@ -12,11 +13,13 @@ type Props = {
 export default class Root extends Component<Props> {
   render() {
     return (
-      <Provider store={this.props.store}>
-        <ConnectedRouter history={this.props.history}>
-          <Routes />
-        </ConnectedRouter>
-      </Provider>
+      <BrowserRouter>
+        <Provider store={this.props.store}>
+          <ConnectedRouter history={this.props.history}>
+            <Routes />
+          </ConnectedRouter>
+        </Provider>
+      </BrowserRouter>
     );
   }
 }

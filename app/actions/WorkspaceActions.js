@@ -17,7 +17,6 @@ return dispatch => {
       if (error) {
         console.log(error);
       }
-      debugger;
       // error handling
       const manifest = JSON.parse(data);  // json object form extracted data
       dispatch({ type: 'FILE_OBTAINED', manifest });
@@ -25,6 +24,33 @@ return dispatch => {
     });
   }
 
+}
+
+export const workspaceUpdate = (props, value) => {
+
+    return {
+    type: 'WORKSPACE_UPDATE',
+    props,
+    value
+    };
+
+
+};
+
+export const addImage = (img) => {
+  return {
+    type: 'ADD_IMAGE',
+    img
+  }
+};
+
+
+export const viewImage = (id, path) => {
+  return {
+    type: 'VIEW_IMAGE',
+    id,
+    path
+  }
 }
 
 

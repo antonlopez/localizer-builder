@@ -51,7 +51,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  const { loading, language, filesExtracted } = state.translator;
+  const { loading, language, filesExtracted } = state.workspace;
   return { loading, language, filesExtracted };
 }
 

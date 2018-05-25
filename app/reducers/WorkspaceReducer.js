@@ -1,11 +1,15 @@
 const INITIAL_STATE = {
   loading: false,
-  language: null,
-  manifest: null,
-  filesExtracted: false,
-  translation: {},
   generatingFile: false,
-  fileObtained: false
+  fileObtained: false,
+  searchTerm: '',
+  valuesToFilter: [],
+  filteredWords: [],
+  addImage: true,
+  images: [],
+  ImagePath: null,
+  ImageId: 0,
+  manifest: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,11 +25,27 @@ export default (state = INITIAL_STATE, action) => {
         loading: false
       };
 
-    case 'SAVE_LANGUAGE':
+    case 'WORKSPACE_UPDATE':              //action.payload === {prop: 'name', value: 'jane' }
+      return { ...state, [action.props]: action.value } ; // [] key interpolation
 
+    case 'ADD_IMAGE':
       return {
         ...state,
-        language: action.lang,
+        images: [...state.images, action.img]
+      };
+
+    case 'VIEW_IMAGE':
+      return {
+        ...state,
+        imagePath: action.path,
+        imageId: action.id,
+        addImage: false
+      };
+
+    case 'UPLOAD_IMAGE':
+      return {
+        ...state,
+        addImage: true,
       };
 
     case 'FILE_OBTAINED':
