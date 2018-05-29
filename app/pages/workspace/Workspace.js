@@ -10,6 +10,7 @@ import ImageContainer from './ImageContainer';
 import ImagePickerContainer from './ImagePickerContainer';
 import SearchTextContainer from './searchTextContainer';
 import UploadFiles from './components/UploadFiles';
+import SelectedTextContainer from './components/SelectedTextContainer';
 
 
 
@@ -35,13 +36,15 @@ class Workspace extends Component<Props> {
         <WorkspaceContainer>
           {addImage ? <UploadFiles />
              :
-          <div style={{display:'flex', marginLeft: '6vw'}}>
+          <div style={{display:'flex', marginLeft: '9vw'}}>
             <ImageContainer imagePath={imagePath} />
             <SearchTextContainer />
           </div> }
 
         </WorkspaceContainer>
+        <SelectedTextContainer />
         <PreviewContainer>
+
           <ImagePickerContainer workspaceUpdate={workspaceUpdate} images={images} viewImage={viewImage} />
         </PreviewContainer>
 
@@ -59,10 +62,10 @@ const PreviewContainer = styled.div`
    left: 0;
    bottom: 0;
    width: 100%;
-   background-color: rgba(45,45,45,0.5);
+   background-color: rgba(45,45,45,0.9);
    color: white;
    text-align: center;
-   height: 155px;
+   height: 13%;
 `;
 
 const zoomInAnimationHome = keyframes`${zoomIn}`;

@@ -4,14 +4,16 @@ import styled from 'styled-components';
 export default ({setImageUpload}) => {
   return (
     <Card onClick={()=>setImageUpload('addImage', true)}>
-      <i class="material-icons">add_photo_alternate</i>
-      <p> Add Image</p>
+      <i className="material-icons">save</i>
+      <p> Save </p>
     </Card>
   );
 };
 
 const Card = styled.div`
-    color: #00BFFF;
+    position: absolute;
+    right: 7px;
+    color: #32CD32;
     text-align: center;
     height: 80%
     width: 6%;
@@ -35,8 +37,8 @@ const Card = styled.div`
     }
 
     :hover{
-      background-color: #00BFFF;
-      color: white;
+      background-color: #32CD32;
+      color: black;
     }
 
 `;

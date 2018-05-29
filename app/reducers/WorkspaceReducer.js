@@ -7,9 +7,10 @@ const INITIAL_STATE = {
   filteredWords: [],
   addImage: true,
   images: [],
-  ImagePath: null,
+  imagePath: null,
   ImageId: 0,
   manifest: [],
+  devKeys: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,10 +38,17 @@ export default (state = INITIAL_STATE, action) => {
     case 'VIEW_IMAGE':
       return {
         ...state,
-        imagePath: action.path,
+        imagePath: action.url,
         imageId: action.id,
         addImage: false
       };
+
+    case 'ADD_TO_MANIFEST':
+      return {
+        ...state, manifest:[ ...state.manifest, action.objToAdd],
+      }
+
+
 
     case 'UPLOAD_IMAGE':
       return {

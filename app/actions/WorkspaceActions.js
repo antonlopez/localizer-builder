@@ -44,12 +44,35 @@ export const addImage = (img) => {
   }
 };
 
+export const addToManifest = (word, key, url, obj) => {
+  const split = url.lastIndexOf(path.sep);
+  const fileName = url.slice(split+1, url.length);
+let text= [];
+let devKeys =[];
+let full_path=[];
+  debugger;
+  let objToAdd ={}
+  objToAdd[key] = {
+   "text":[word],
+   "devKeys":[key],
+   "img_url":[fileName],
+   "full_path":[url]
+ };
 
-export const viewImage = (id, path) => {
+  return {
+    type:'ADD_TO_MANIFEST',
+    objToAdd
+  }
+
+
+};
+
+
+export const viewImage = (id, url) => {
   return {
     type: 'VIEW_IMAGE',
     id,
-    path
+    url
   }
 }
 

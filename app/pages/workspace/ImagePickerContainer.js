@@ -4,6 +4,7 @@ import {zoomIn} from 'react-animations';
 import styled, {keyframes} from 'styled-components';
 import AddImageCard from './components/AddImageCard';
 import ImageCard from './components/ImageCard';
+import SaveCard from './components/SaveCard';
 import Draggable from 'react-draggable';
 
 
@@ -46,13 +47,16 @@ class ImageContainer extends Component<Props> {
       return (
         <Container>
           <AddImageCard setImageUpload={workspaceUpdate} />
-          <Draggable onDrag={this.handleDrag} position={this.state.controlledPosition} axis="x" bounds={{ top: 0, bottom: 0 }} >
-          <div style={{width:'500px', display:'flex'}}>
+          <ImagesContainer>
+            <Draggable onDrag={this.handleDrag} position={this.state.controlledPosition} axis="x" bounds={{ top: 0, bottom: 0 }} >
+            <div style={{ display:'flex', height: '100%', alignItems:'center'}}>
 
 
-          {images ? images.map((img, index) =>  <ImageCard viewImage={viewImage} key={index} index={index} url={img.path} />) : ''}
+            {images ? images.map((img, index) =>  <ImageCard viewImage={viewImage} key={index} index={index} url={img.path} />) : ''}
           </div>
           </Draggable>
+          </ImagesContainer>
+          {images.length > 0 ? <SaveCard /> : '' }
 
         </Container>
       );
@@ -65,6 +69,12 @@ const Container = styled.div`
   display: flex;
   align-items: center;
 
+`;
+
+const ImagesContainer = styled.div`
+    overflow:hidden;
+    width:93%;
+    height: 100%;
 
 
 `;

@@ -11,9 +11,8 @@ export default ({url, index,  viewImage}) => {
 
 const Card = styled.div`
     text-align: center;
-    height: 126px
-    width: 158px;
-    min-width: 158px
+    height: 80%
+    width: 8vw;
     border-radius: .5vw;
     box-shadow: 0px 1px 2px 4px rgba(0,0,0,0.2);
     overflow: hidden;
@@ -24,6 +23,7 @@ const Card = styled.div`
     justify-content: space-around;
     cursor: pointer;
     transition: .3s ease-in-out;
+    min-width: 90px;
 
 
     :hover{

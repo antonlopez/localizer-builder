@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchInput, {createFilter} from 'react-search-input';
 import { connect } from 'react-redux';
 import{ bindActionCreators } from 'redux';
-import { workspaceUpdate } from '../../../actions';
+import { workspaceUpdate, addToManifest } from '../../../actions';
 import Emails from './Emails';
 import language from './language.json';
 import '../../../Assets/css/searchFilter.css';
@@ -19,15 +19,16 @@ class SearchFilter extends Component {
   componentWillMount() {
     let valuesToFilter = [];
     let keys= [];
+    const {workspaceUpdate} = this.props;
     Object.keys(language).map(key => {
       valuesToFilter.push(language[key]);
-      keys.push(language);
+      keys.push(key);
     });
 
-    this.props.workspaceUpdate('valuesToFilter', valuesToFilter);
-    this.props.workspaceUpdate('filteredWords', valuesToFilter);
+    workspaceUpdate('valuesToFilter', valuesToFilter);
+    workspaceUpdate('filteredWords', valuesToFilter);
+    workspaceUpdate('devKeys', keys);
 
-    //this.setState({ valuesToFilter, keys });
   }
 
   searchUpdated(searchTerm) {
@@ -38,25 +39,30 @@ class SearchFilter extends Component {
 
     workspaceUpdate('searchTerm', searchTerm);
     workspaceUpdate('filteredWords', filteredWords);
+
   }
 
-  addToFile(word){
+  addToFile(word) {
+    const{ devKeys, imagePath, addToManifest, valuesToFilter, manifest} = this.props;
+    const index = valuesToFilter.indexOf(word);
+    const key = devKeys[index];
+    addToManifest(word, key, imagePath, manifest );
 
   }
 
 
   render() {
     //const{ keys, valuesToFilter, filteredWords } = this.state;
-    const{ valuesToFilter, filteredWords } = this.props;
+    const{ filteredWords } = this.props;
 
     return (
       <Container>
         <SearchInput className="search-input" onChange={this.searchUpdated} />
-        {filteredWords.map(word => {
+        {filteredWords.map((word, index) => {
 
           return (
 
-              <Card onClick={()=> this.addToFile(word)} className="from">{word}</Card>
+            <Card onClick={() => this.addToFile(word, index)} className="from">{word}</Card>
 
           )
         })}
@@ -110,12 +116,12 @@ Card.displayName = 'Card';
 
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ workspaceUpdate }, dispatch);
+  return bindActionCreators({ workspaceUpdate, addToManifest }, dispatch);
 };
 
 const mapStateToProps = state => {
-  const { valuesToFilter, searchTerm, filteredWords } = state.workspace;
-  return { valuesToFilter, searchTerm, filteredWords };
+  const { valuesToFilter, searchTerm, filteredWords, devKeys, imagePath, ImageId, manifest } = state.workspace;
+  return { valuesToFilter, searchTerm, filteredWords, devKeys, imagePath, ImageId, manifest };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);
