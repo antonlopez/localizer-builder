@@ -25,7 +25,7 @@ class Workspace extends Component<Props> {
 
 
   render() {
-    const { getFile, addImage, images, viewImage, imagePath, workspaceUpdate} = this.props;
+    const { getFile, addImage, images, viewImage, imagePath, workspaceUpdate, imgName, wordsSelected, manifest, history} = this.props;
 
 
     return (
@@ -42,10 +42,9 @@ class Workspace extends Component<Props> {
           </div> }
 
         </WorkspaceContainer>
-        <SelectedTextContainer />
+        {addImage ? '' : <SelectedTextContainer imgName={imgName} wordsSelected={wordsSelected} />}
         <PreviewContainer>
-
-          <ImagePickerContainer workspaceUpdate={workspaceUpdate} images={images} viewImage={viewImage} />
+          <ImagePickerContainer history={history} manifest={manifest} workspaceUpdate={workspaceUpdate} images={images} viewImage={viewImage} />
         </PreviewContainer>
 
       </Container>
@@ -86,8 +85,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  const { loading, language, filesExtracted, addImage, images, imagePath, imageId } = state.workspace;
-  return { loading, language, filesExtracted, addImage, images, imagePath };
+  const { loading, language, filesExtracted, addImage, images, imagePath, imgName, wordsSelected, manifest } = state.workspace;
+  return { loading, language, filesExtracted, addImage, images, imagePath, imgName, wordsSelected, manifest };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Workspace);

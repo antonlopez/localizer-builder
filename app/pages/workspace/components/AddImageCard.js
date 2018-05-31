@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default ({setImageUpload}) => {
   return (
-    <Card onClick={()=>setImageUpload('addImage', true)}>
+    <Card onClick={() => setImageUpload('addImage', true)}>
       <i class="material-icons">add_photo_alternate</i>
       <p> Add Image</p>
     </Card>

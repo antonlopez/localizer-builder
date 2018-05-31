@@ -40,7 +40,7 @@ class ImageContainer extends Component<Props> {
 
 
     render() {
-      const { images, viewImage, workspaceUpdate } = this.props;
+      const { images, viewImage, workspaceUpdate, manifest, history } = this.props;
 
 
 
@@ -52,11 +52,11 @@ class ImageContainer extends Component<Props> {
             <div style={{ display:'flex', height: '100%', alignItems:'center'}}>
 
 
-            {images ? images.map((img, index) =>  <ImageCard viewImage={viewImage} key={index} index={index} url={img.path} />) : ''}
+            {images ? images.map((img, index) =>  <ImageCard manifest={manifest} viewImage={viewImage} key={index} index={index} url={img.path} />) : ''}
           </div>
           </Draggable>
           </ImagesContainer>
-          {images.length > 0 ? <SaveCard /> : '' }
+          {images.length > 0 ? <SaveCard history={history} /> : '' }
 
         </Container>
       );

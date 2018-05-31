@@ -44,35 +44,69 @@ export const addImage = (img) => {
   }
 };
 
-export const addToManifest = (word, key, url, obj) => {
+export const addToManifest = (word, key, url, manifest, NewValuesToFilter) => {
   const split = url.lastIndexOf(path.sep);
-  const fileName = url.slice(split+1, url.length);
-let text= [];
-let devKeys =[];
-let full_path=[];
-  debugger;
-  let objToAdd ={}
-  objToAdd[key] = {
-   "text":[word],
-   "devKeys":[key],
-   "img_url":[fileName],
-   "full_path":[url]
- };
+  const fileName = url.slice(split + 1, url.length);
+  const objExist = manifest[fileName];
+  const words = [];
+
+  if (objExist !== undefined) {
+    manifest[fileName].devKeys.push(key);
+    manifest[fileName].text.push(word);
+    manifest[fileName].text.map(tx => words.push(tx));
+
+    return {
+      type: 'UPDATE_MANIFEST',
+      deleteWord: word,
+      manifest,
+      words,
+      NewValuesToFilter
+    };
+  }
+else {
+    words.push(word);
+    let objToAdd ={}
+    objToAdd = {
+     "text":[word],
+     "devKeys":[key],
+     "img_url":fileName,
+     "full_path":url
+    };
 
   return {
     type:'ADD_TO_MANIFEST',
-    objToAdd
+      deleteWord: word,
+    objToAdd,
+    fileName,
+    words,
+    NewValuesToFilter
   }
 
+}
 
 };
 
 
-export const viewImage = (id, url) => {
+export const addedWord = (word) => {
+  return {
+    type
+   }
+
+};
+
+
+export const viewImage = (id, url, manifest) => {
+  const wordsSelected = [];
+  const split = url.lastIndexOf(path.sep);
+  const fileName = url.slice(split + 1, url.length);
+  if (manifest[fileName] !== undefined) {
+    manifest[fileName].text.map(tx => wordsSelected.push(tx));
+  }
   return {
     type: 'VIEW_IMAGE',
     id,
-    url
+    url,
+    wordsSelected
   }
 }
 
@@ -93,32 +127,7 @@ export const saveTranslation = (devKey, text) => {
   }
 };
 
-export const generateFile = (output, language) => {
-  return dispatch =>{
-    dispatch({type: 'GENERATING_FILE'});
-    const result = JSON.stringify(output);
-    const test = os.homedir();
-    let pathToSave = `${os.homedir()}${path.sep}te_language.json`;
-    const date = Date.now();
 
-    if (os.platform() === "win32"){
-      pathToSave = `${os.homedir()}${path.sep}Desktop${path.sep}${language}_${date}.json`;
-    }
-
-
-    fs.writeFile(pathToSave, result, 'utf8', function (err) {
-    if (err) {
-        return console.log(err);
-    }
-
-    console.log("The file was saved!");
-    const pathToDelete = `${os.homedir()}${path.sep}Desktop${path.sep}extracted`; //used only on windows
-    rimraf(pathToDelete, function () { console.log('done'); });
-    dispatch({type: 'FILE_GENERATED'});
-});
-
-  }
-}
 
 export const deletePrevious = () => {
   return dispatch => {

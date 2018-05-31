@@ -19,7 +19,7 @@ class SearchFilter extends Component {
   componentWillMount() {
     let valuesToFilter = [];
     let keys= [];
-    const {workspaceUpdate} = this.props;
+    const { workspaceUpdate } = this.props;
     Object.keys(language).map(key => {
       valuesToFilter.push(language[key]);
       keys.push(key);
@@ -46,7 +46,10 @@ class SearchFilter extends Component {
     const{ devKeys, imagePath, addToManifest, valuesToFilter, manifest} = this.props;
     const index = valuesToFilter.indexOf(word);
     const key = devKeys[index];
-    addToManifest(word, key, imagePath, manifest );
+    const NewValuesToFilter =valuesToFilter;
+    NewValuesToFilter.splice(index, 1);
+
+    addToManifest(word, key, imagePath, manifest, NewValuesToFilter );
 
   }
 

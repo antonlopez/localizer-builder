@@ -9,8 +9,10 @@ const INITIAL_STATE = {
   images: [],
   imagePath: null,
   ImageId: 0,
-  manifest: [],
+  manifest: {},
   devKeys: [],
+  imgName: null,
+  wordsSelected: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -40,12 +42,30 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         imagePath: action.url,
         imageId: action.id,
-        addImage: false
+        addImage: false,
+        wordsSelected: action.wordsSelected,
       };
 
     case 'ADD_TO_MANIFEST':
       return {
-        ...state, manifest:[ ...state.manifest, action.objToAdd],
+        ...state,
+        imgName: action.fileName,
+        wordsSelected: action.words,
+        valuesToFilter: state.valuesToFilter.filter(item => item !== action.deleteWord),
+        filteredWords: state.filteredWords.filter(item => item !== action.deleteWord),
+        manifest: {
+          ...state.manifest,
+          [action.fileName]: action.objToAdd
+        }
+      };
+
+    case 'UPDATE_MANIFEST':
+      return {
+        ...state,
+        manifest: action.manifest,
+        wordsSelected: action.words,
+        valuesToFilter: state.valuesToFilter.filter(item => item !== action.deleteWord),
+        filteredWords: state.filteredWords.filter(item => item !== action.deleteWord),
       }
 
 

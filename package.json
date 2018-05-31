@@ -187,6 +187,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "adm-zip": "^0.4.11",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "font-awesome": "^4.7.0",
@@ -195,6 +196,7 @@
     "load-awesome": "^1.1.0",
     "lodash": "^4.17.10",
     "node-stream-zip": "^1.7.0",
+    "original-fs": "^1.0.0",
     "react": "^16.3.2",
     "react-animations": "^1.0.0",
     "react-dnd": "^2.6.0",

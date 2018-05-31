@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default ({setImageUpload}) => {
+export default ({ history }) => {
   return (
-    <Card onClick={()=>setImageUpload('addImage', true)}>
+    <Card onClick={() => history.push('./zip')}>
       <i className="material-icons">save</i>
       <p> Save </p>
     </Card>

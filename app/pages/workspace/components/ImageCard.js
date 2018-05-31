@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default ({url, index,  viewImage}) => {
+export default ({url, index,  viewImage, manifest}) => {
   return (
-    <Card onClick={()=> viewImage(index, url)}>
+    <Card onClick={()=> viewImage(index, url, manifest)}>
       <Img src={url} border="0" alt={url} />
     </Card>
   );

@@ -15,12 +15,15 @@ class SelectedTextContainer extends Component<Props> {
 
 
   render() {
+    const { wordsSelected } = this.props;
 
     return (
       <Container>
-        <Card>
-           Continue
-        </Card>
+
+        {wordsSelected !== null ? wordsSelected.map(txt => <Card>{txt} </Card>)
+          :
+          '' }
+
 
 
 
@@ -56,6 +59,7 @@ const Card = styled.div`
 
 
     :hover{
+      background-color: #ff3232;
 
     }
 `;
