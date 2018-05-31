@@ -19,11 +19,16 @@ class SearchFilter extends Component {
   componentWillMount() {
     let valuesToFilter = [];
     let keys= [];
-    const { workspaceUpdate } = this.props;
-    Object.keys(language).map(key => {
-      valuesToFilter.push(language[key]);
-      keys.push(key);
-    });
+    const { workspaceUpdate, uploadedKeys } = this.props;
+    // Object.keys(uploadedKeys).map(key => {   // production
+    //   valuesToFilter.push(uploadedKeys[key]);
+    //   keys.push(key);
+    // });
+    //
+      Object.keys(language).map(key => {       //development
+        valuesToFilter.push(language[key]);
+        keys.push(key);
+      });
 
     workspaceUpdate('valuesToFilter', valuesToFilter);
     workspaceUpdate('filteredWords', valuesToFilter);
@@ -123,8 +128,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  const { valuesToFilter, searchTerm, filteredWords, devKeys, imagePath, ImageId, manifest } = state.workspace;
-  return { valuesToFilter, searchTerm, filteredWords, devKeys, imagePath, ImageId, manifest };
+  const { valuesToFilter, searchTerm, filteredWords, devKeys, imagePath, ImageId, manifest, uploadedKeys } = state.workspace;
+  return { valuesToFilter, searchTerm, filteredWords, devKeys, imagePath, ImageId, manifest, uploadedKeys };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilter);

@@ -10,9 +10,10 @@ const INITIAL_STATE = {
   imagePath: null,
   ImageId: 0,
   manifest: {},
+  uploadedKeys: {},
   devKeys: [],
   imgName: null,
-  wordsSelected: null
+  wordsSelected: null,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -53,6 +54,7 @@ export default (state = INITIAL_STATE, action) => {
         wordsSelected: action.words,
         valuesToFilter: state.valuesToFilter.filter(item => item !== action.deleteWord),
         filteredWords: state.filteredWords.filter(item => item !== action.deleteWord),
+        devKeys: state.devKeys.filter(item => item !== action.deleteKey),
         manifest: {
           ...state.manifest,
           [action.fileName]: action.objToAdd
@@ -66,6 +68,7 @@ export default (state = INITIAL_STATE, action) => {
         wordsSelected: action.words,
         valuesToFilter: state.valuesToFilter.filter(item => item !== action.deleteWord),
         filteredWords: state.filteredWords.filter(item => item !== action.deleteWord),
+        devKeys: state.devKeys.filter(item => item !== action.deleteKey),
       }
 
 
@@ -79,7 +82,7 @@ export default (state = INITIAL_STATE, action) => {
     case 'FILE_OBTAINED':
       return {
         ...state,
-        manifest: action.manifest,
+        uploadedKeys: action.uploadedKeys,
         loading: false,
         fileObtained: true
       };

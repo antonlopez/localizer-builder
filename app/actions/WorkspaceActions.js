@@ -18,8 +18,8 @@ return dispatch => {
         console.log(error);
       }
       // error handling
-      const manifest = JSON.parse(data);  // json object form extracted data
-      dispatch({ type: 'FILE_OBTAINED', manifest });
+      const uploadedKeys = JSON.parse(data);  // json object form extracted data
+      dispatch({ type: 'FILE_OBTAINED', uploadedKeys });
       redirect.push('/workspace');
     });
   }
@@ -49,7 +49,7 @@ export const addToManifest = (word, key, url, manifest, NewValuesToFilter) => {
   const fileName = url.slice(split + 1, url.length);
   const objExist = manifest[fileName];
   const words = [];
-
+debugger;
   if (objExist !== undefined) {
     manifest[fileName].devKeys.push(key);
     manifest[fileName].text.push(word);
@@ -58,6 +58,7 @@ export const addToManifest = (word, key, url, manifest, NewValuesToFilter) => {
     return {
       type: 'UPDATE_MANIFEST',
       deleteWord: word,
+      deleteKey: key,
       manifest,
       words,
       NewValuesToFilter
@@ -76,6 +77,7 @@ else {
   return {
     type:'ADD_TO_MANIFEST',
       deleteWord: word,
+      deleteKey: key,
     objToAdd,
     fileName,
     words,
