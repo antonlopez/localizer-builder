@@ -1,8 +1,8 @@
 {
-  "name": "Localizer",
+  "name": "Localize_builder",
   "productName": "ElectronReact",
   "version": "0.13.2",
-  "description": "Electron application based on react, the goal of this app is to translate variables for an application ",
+  "description": " App  focused on generate content for the Localizer app ",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\" ",
     "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
@@ -32,7 +32,7 @@
   },
   "browserslist": "electron 1.6",
   "build": {
-    "productName": "Localizer",
+    "productName": "Localizer_builder",
     "appId": "org.develar.ElectronReact",
     "files": [
       "dist/",
@@ -78,9 +78,9 @@
     "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Juan Lopez",
+    "email": "anton.lopez09@gmail.com",
+    "url": "https://github.com/antonlopez"
   },
   "license": "MIT",
   "bugs": {

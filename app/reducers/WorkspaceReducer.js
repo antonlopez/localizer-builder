@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   devKeys: [],
   imgName: null,
   wordsSelected: null,
+  projectName: null,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -84,7 +85,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         uploadedKeys: action.uploadedKeys,
         loading: false,
-        fileObtained: true
+        fileObtained: true,
+        projectName: action.fileName,
       };
 
     case 'GENERATING_FILE':
@@ -102,11 +104,18 @@ export default (state = INITIAL_STATE, action) => {
         translation: {}
       };
 
-    case 'SAVE_TRANSLATION':
-      return { ...state, translation: { ...state.translation, [action.devKey]: action.text }}
+    case 'REMOVED_FROM_SELECTED':
+      return {
+        ...state,
+        manifest: action.manifest,
+        devKeys: action.devKeys,
+        valuesToFilter: action.valuesToFilter.concat(),
+        filteredWords: action.valuesToFilter.concat(),
+        wordsSelected: state.wordsSelected.filter(item => item !== action.word),
+      };
 
     case 'DELETING_FILE':
-      return { ...state, fileGenerated: false }
+      return { ...state, fileGenerated: false };
 
     case 'RESET':
       return INITIAL_STATE;

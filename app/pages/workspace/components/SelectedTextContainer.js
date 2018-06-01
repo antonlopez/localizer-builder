@@ -12,6 +12,12 @@ class SelectedTextContainer extends Component<Props> {
 
   }
 
+  remove (word) {
+    const { manifest, valuesToFilter, removeFromManifest, imagePath, devKeys, filteredWords} = this.props;
+    removeFromManifest(word, manifest, valuesToFilter, imagePath, devKeys, filteredWords);
+
+  }
+
 
 
   render() {
@@ -20,7 +26,7 @@ class SelectedTextContainer extends Component<Props> {
     return (
       <Container>
 
-        {wordsSelected !== null ? wordsSelected.map(txt => <Card>{txt} </Card>)
+        {wordsSelected !== null ? wordsSelected.map(txt => <Card onClick={() => this.remove(txt)}>{txt} </Card>)
           :
           '' }
 

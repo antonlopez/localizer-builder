@@ -17,22 +17,34 @@ class SearchFilter extends Component {
   }
 
   componentWillMount() {
-    let valuesToFilter = [];
+    let valuesToFilterFile = [];
     let keys= [];
-    const { workspaceUpdate, uploadedKeys } = this.props;
-    // Object.keys(uploadedKeys).map(key => {   // production
-    //   valuesToFilter.push(uploadedKeys[key]);
-    //   keys.push(key);
-    // });
-    //
-      Object.keys(language).map(key => {       //development
-        valuesToFilter.push(language[key]);
+    const { workspaceUpdate, uploadedKeys, valuesToFilter, devKeys } = this.props;
+
+
+    //   Object.keys(language).map(key => {       //development
+      //   valuesToFilterFile.push(language[key]);
+      //   keys.push(key);
+      // });
+      if(valuesToFilter.length < 1) {
+
+      Object.keys(uploadedKeys).map(key => {   // production
+
+        valuesToFilterFile.push(uploadedKeys[key]);
         keys.push(key);
       });
 
-    workspaceUpdate('valuesToFilter', valuesToFilter);
-    workspaceUpdate('filteredWords', valuesToFilter);
-    workspaceUpdate('devKeys', keys);
+
+      workspaceUpdate('valuesToFilter', valuesToFilterFile);
+      workspaceUpdate('filteredWords', valuesToFilterFile);
+      workspaceUpdate('devKeys', keys);
+    }
+    else {
+      workspaceUpdate('valuesToFilter', valuesToFilter);
+      workspaceUpdate('filteredWords', valuesToFilter);
+      workspaceUpdate('devKeys', devKeys);
+
+    }
 
   }
 

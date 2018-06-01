@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
 
   zippingFile: false,
-  zipGenerated: false
+  zipGenerated: false,
+  fileLocation: null
 
 }
 
@@ -16,7 +17,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         zippingFile: false,
-        zipGenerated: true
+        zipGenerated: true,
+        fileLocation: action.fileLocation,
       };
 
 

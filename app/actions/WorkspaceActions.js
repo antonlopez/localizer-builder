@@ -17,9 +17,12 @@ return dispatch => {
       if (error) {
         console.log(error);
       }
-      // error handling
+
+        const split = filePath.lastIndexOf(path.sep);
+        const fileName = filePath.slice(split + 1, filePath.length-5);// get thefile name
+
       const uploadedKeys = JSON.parse(data);  // json object form extracted data
-      dispatch({ type: 'FILE_OBTAINED', uploadedKeys });
+      dispatch({ type: 'FILE_OBTAINED', uploadedKeys, fileName });
       redirect.push('/workspace');
     });
   }
@@ -49,7 +52,7 @@ export const addToManifest = (word, key, url, manifest, NewValuesToFilter) => {
   const fileName = url.slice(split + 1, url.length);
   const objExist = manifest[fileName];
   const words = [];
-debugger;
+
   if (objExist !== undefined) {
     manifest[fileName].devKeys.push(key);
     manifest[fileName].text.push(word);
@@ -139,4 +142,34 @@ export const deletePrevious = () => {
 
   }
 
+}
+
+
+export const removeFromManifest = (word, manifest, valuesToFilter, imagePath, devKeys, filteredWords) => {
+  const split = imagePath.lastIndexOf(path.sep);
+  const fileName = imagePath.slice(split + 1, imagePath.length);    //get the fileName which is the key value on each object    picture_1: { text:[], devkeys:[], img_url:''}
+  const index = manifest[fileName].text.indexOf(word);        //get the index of the word int the text array
+  const devKey = manifest[fileName].devKeys[index];               // get the devKey
+
+  manifest[fileName].text.splice(index, 1);
+  manifest[fileName].devKeys.splice(index, 1);
+
+  valuesToFilter.unshift(word);
+  devKeys.unshift(devKey);
+
+
+  return {
+    type: 'REMOVED_FROM_SELECTED',
+    manifest,
+    valuesToFilter,
+    devKeys,
+    word
+  };
+
+}
+
+export const reset = () => {
+  return {
+    type: 'RESET',
+  };
 }

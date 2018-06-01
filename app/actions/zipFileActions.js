@@ -8,22 +8,22 @@ const os = require('os');
 const AdmZip = require('adm-zip');
 
 
-export const generateFile = (manifest) => {
+export const generateFile = (manifest, projectName) => {
 
   return dispatch =>{
     dispatch({type: 'LOADING_ZIP'});
     const zip = new AdmZip();
     const language ='test';
-
-
-    let pathToSave = `${os.homedir()}${path.sep}test.zip`;
     const date = Date.now();
 
+
+    let pathToSave = `${os.homedir()}${path.sep}${projectName}_${date}.zip`;
+
+
     if (os.platform() === "win32"){
-      pathToSave = `${os.homedir()}${path.sep}Desktop${path.sep}test.zip`;
+      pathToSave = `${os.homedir()}${path.sep}Desktop${path.sep}${projectName}_${date}.zip`;
     }
 
-         const te = `C:${path.sep}Users${path.sep}lopezj${path.sep}Desktop${path.sep}TE${path.sep}7.PNG`;
 
          const images = [];
          const newFile = [];
@@ -44,7 +44,7 @@ export const generateFile = (manifest) => {
          zip.addFile("manifest.json", new Buffer(json), "comment");
 
          zip.writeZip(/*target file name*/pathToSave);
-         dispatch({type: 'FILE_ZIPED'});
+         dispatch({type: 'FILE_ZIPED', fileLocation: pathToSave});
 
 
 }

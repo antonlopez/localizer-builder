@@ -14,15 +14,15 @@ class SearchTextContainer extends Component<Props> {
 
   render() {
     return (
-      <Container>
+      <div style = {{ position:'absolute', right:0, top:0, width:'20%', overflow:'auto'}}>
         <SearchFilter />
 
-      </Container>
+      </div>
     );
   }
 }
 
-
+// using styled component in production causes error Uncaught ReferenceError: _ref is not defined
 const Container = styled.div`
 position: absolute;
 right: 0;

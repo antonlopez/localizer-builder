@@ -5,7 +5,7 @@ import{ bindActionCreators } from 'redux';
 import {zoomIn} from 'react-animations';
 import styled, {keyframes} from 'styled-components';
 import { Link } from 'react-router-dom';
-import { getFile, saveLanguage, deletePrevious, viewImage, workspaceUpdate } from '../../actions';
+import { getFile, saveLanguage, deletePrevious, viewImage, workspaceUpdate, removeFromManifest, reset } from '../../actions';
 import ImageContainer from './ImageContainer';
 import ImagePickerContainer from './ImagePickerContainer';
 import SearchTextContainer from './searchTextContainer';
@@ -25,7 +25,8 @@ class Workspace extends Component<Props> {
 
 
   render() {
-    const { getFile, addImage, images, viewImage, imagePath, workspaceUpdate, imgName, wordsSelected, manifest, history} = this.props;
+    const { getFile, addImage, images, viewImage, imagePath, workspaceUpdate,
+       imgName, wordsSelected, manifest, history, removeFromManifest, filteredWords, devKeys, valuesToFilter} = this.props;
 
 
     return (
@@ -42,10 +43,22 @@ class Workspace extends Component<Props> {
           </div> }
 
         </WorkspaceContainer>
-        {addImage ? '' : <SelectedTextContainer imgName={imgName} wordsSelected={wordsSelected} />}
-        <PreviewContainer>
-          <ImagePickerContainer history={history} manifest={manifest} workspaceUpdate={workspaceUpdate} images={images} viewImage={viewImage} />
-        </PreviewContainer>
+        {addImage ? '' : <SelectedTextContainer
+           imagePath={imagePath}
+           manifest={manifest}
+           devKeys={devKeys}
+           filteredWords={filteredWords}
+           removeFromManifest={removeFromManifest}
+           imgName={imgName}
+           valuesToFilter={valuesToFilter}
+           wordsSelected={wordsSelected} />}
+        {images.length > 0 ?
+          <PreviewContainer>
+            <ImagePickerContainer history={history} manifest={manifest} workspaceUpdate={workspaceUpdate} images={images} viewImage={viewImage} />
+          </PreviewContainer>
+          : ''
+         }
+
 
       </Container>
     );
@@ -81,12 +94,12 @@ const MenuContainer = styled.div`
 
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getFile, saveLanguage, deletePrevious, viewImage, workspaceUpdate }, dispatch);
+  return bindActionCreators({ getFile, saveLanguage, deletePrevious, viewImage, workspaceUpdate, removeFromManifest, reset }, dispatch);
 };
 
 const mapStateToProps = state => {
-  const { loading, language, filesExtracted, addImage, images, imagePath, imgName, wordsSelected, manifest } = state.workspace;
-  return { loading, language, filesExtracted, addImage, images, imagePath, imgName, wordsSelected, manifest };
+  const { loading, language, filesExtracted, addImage, images, imagePath, imgName, wordsSelected, manifest, filteredWords, devKeys, valuesToFilter } = state.workspace;
+  return { loading, language, filesExtracted, addImage, images, imagePath, imgName, wordsSelected, manifest, filteredWords, devKeys, valuesToFilter };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Workspace);
